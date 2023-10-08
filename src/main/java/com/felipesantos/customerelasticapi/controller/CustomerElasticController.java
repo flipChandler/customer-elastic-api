@@ -14,7 +14,7 @@ public class CustomerElasticController {
 
     private final CustomerElasticService service;
 
-    @GetMapping()
+    @GetMapping
     public Iterable<CustomerElastic> findAllCustomers() {
         return service.findAll();
     }
@@ -24,7 +24,13 @@ public class CustomerElasticController {
         return service.findByFirstName(firstName);
     }
 
-    @PostMapping()
+    @GetMapping("/last-name/email")
+    public List<CustomerElastic> findByLastNameAndEmail(@RequestParam String lastName,
+                                                        @RequestParam String email) {
+        return service.findByLastNameAndEmail(lastName, email);
+    }
+
+    @PostMapping
     public int saveCustomer(@RequestBody List<CustomerElastic> customers) {
         service.saveAll(customers);
         return customers.size();
